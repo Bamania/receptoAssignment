@@ -1,17 +1,17 @@
-// "use client"
-
 import { use, useState } from "react";
 import {
     Building,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
+  FacebookIcon,
   Home,
   LogOut,
   MoreVertical,
   PieChart,
   Search,
   ThumbsUp,
+  TowerControl,
   Users,
 } from "lucide-react";
 import { useAppSelector } from "@/redux/hooks";
@@ -19,9 +19,11 @@ import receptoLogo from "@/assets/receptoLogo.png"
 import { localStorageUtils } from "@/lib/localStorageutils";
 import { User } from "@/types/Usertypes";
 import randomProfile from "@/assets/pfps/pfp2.png"
+import { Commonheader } from "../commonheader";
+import { LeadChart } from "./Component/LeadChart";
 
 export default function Analytics() {
-    const loggedUserData=useAppSelector((state)=>state.USER_DATA.user)
+const loggedUserData=useAppSelector((state)=>state.USER_DATA.user)
   const userRole = useAppSelector((state) => state.USER_DATA.user?.role);
   const AllLeads=useAppSelector((state)=>state.ORG_DATA.currentOrg?.leads)
   const teamMates=  localStorageUtils.getCurrentOrgData().users
@@ -99,190 +101,181 @@ const orgnetAssignedCount = countLeadsByType('orgnet', 'peopleList');
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Header */}
-       
+        <Commonheader />
 
         {/* Dashboard Content */}
         <div className="flex-1 overflow-auto p-6">
           <div className="max-w-7xl mx-auto space-y-6">
             {/* ReceptoNet Leads Section */}
             <div className="grid grid-cols-3 gap-4">
-              <div className="col-span-2 bg-white rounded-lg shadow p-4">
-                <div className="flex items-center mb-4">
-                  <div className="bg-blue-100 p-2 rounded-md mr-3">
-                    <div className="text-blue-600 font-bold">R</div>
-                  </div>
-                  <div>
-                    <div className="flex items-center">
-                      <span className="font-medium">ReceptoNet Leads</span>
-                      <div className="ml-2 text-gray-400 rounded-full border border-gray-300 h-5 w-5 flex items-center justify-center text-xs">
-                        i
+              <div className="col-span-2 bg-white rounded-lg shadow p-4 grid grid-cols-3 gap-4">
+                <div className="col-span-1 flex flex-col">
+                  <div className="flex  flex-col items-start mb-4">
+                    <div className="bg-blue-100 p-2 rounded-md mr-3">
+                      <TowerControl/>
+                    </div>
+                    <div>
+                      <div className="flex items-center">
+                        <span className="font-medium">ReceptoNet Leads</span>
+                        <div className="ml-2 text-gray-400 rounded-full border border-gray-300 h-5 w-5 flex items-center justify-center text-xs">
+                          i
+                        </div>
+                      </div>
+                      <div className="flex items-center mt-2">
+                        <span className="text-3xl font-bold">404</span>
+                        <span className="text-gray-500 ml-2">Total</span>
                       </div>
                     </div>
-                    <div className="flex items-center mt-2">
-                      <span className="text-3xl font-bold">404</span>
-                      <span className="text-gray-500 ml-2">Total</span>
+                  </div>
+                  
+                  <div className="w-full bg-blue-100 rounded-full h-2 mb-2">
+                    <div className="bg-blue-600 h-2 rounded-full" style={{ width: '30%' }}></div>
+                  </div>
+
+                  <div className="flex justify-between w-full text-xs">
+                    <div className="flex items-center">
+                       <div className="h-1 w-3 bg-blue-600 rounded-sm mr-1"></div> 
+                       <div>
+                         <div>Unlocked</div> 
+                         <div className="font-medium">179 users</div>
+                       </div>
+                    </div>
+                    <div className="flex items-center">
+                      <div className="h-1 w-3 bg-blue-100 rounded-sm mr-1 border border-blue-200"></div>
+                      <div>
+                         <div>Yet to Unlock</div>
+                         <div className="font-medium">394 users</div>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="space-y-4">
-                    <div>
-                      <div className="flex items-center mb-1">
-                        <div className="h-3 w-3 bg-blue-600 rounded-sm mr-2"></div>
-                        <span className="text-sm">Unlocked</span>
+                <div className="col-span-2 relative">
+                  <div className="h-full flex items-end">
+                    <div className="w-full h-48 bg-blue-50 rounded-md relative overflow-hidden">
+                      <div
+                        className="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-blue-300 to-blue-100"
+                        style={{
+                          clipPath:
+                            "polygon(0% 90%, 15% 80%, 30% 85%, 45% 70%, 60% 75%, 75% 55%, 90% 60%, 100% 50%, 100% 100%, 0% 100%)",
+                        }}
+                      ></div>
+                      <div className="absolute top-1/4 right-1/4 transform -translate-y-1/2 flex flex-col items-center">
+                         <div className="bg-white px-1.5 py-0.5 rounded shadow text-blue-600 text-xs font-medium border border-blue-200">
+                            394
+                         </div>
+                         <div className="w-2 h-2 bg-blue-600 rounded-full border-2 border-white absolute -bottom-1"></div>
                       </div>
-                      <div className="h-2 bg-blue-600 rounded-full w-1/3 mb-1"></div>
-                      <span className="text-sm">179 users</span>
-                    </div>
-
-                    <div>
-                      <div className="flex items-center mb-1">
-                        <div className="h-3 w-3 bg-blue-200 rounded-sm mr-2"></div>
-                        <span className="text-sm">Yet to Unlock</span>
+                       <div className="absolute top-1/4 right-1/4 h-3/4 w-px bg-blue-300"></div>
+                      
+                      <div className="absolute bottom-1 w-full flex justify-between text-xs text-gray-500 px-2">
+                        <span>Jan</span>
+                        <span>Mar</span>
+                        <span>May</span>
                       </div>
-                      <div className="h-2 bg-blue-200 rounded-full w-2/3 mb-1"></div>
-                      <span className="text-sm">394 users</span>
-                    </div>
-                  </div>
-
-                  <div className="col-span-2 relative">
-                    <div className="h-full flex items-end">
-                      <div className="w-full h-full bg-blue-100 rounded-md relative overflow-hidden">
-                        <div
-                          className="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-blue-400 to-blue-200"
-                          style={{
-                            clipPath:
-                              "polygon(0 100%, 100% 60%, 100% 100%, 0% 100%)",
-                          }}
-                        ></div>
-                        <div className="absolute top-0 right-8 text-blue-600 text-sm">
-                          394
-                        </div>
-                        <div className="absolute top-0 right-8 h-full w-px bg-blue-400"></div>
-                        <div className="absolute bottom-0 w-full flex justify-between text-xs text-gray-500 px-2">
-                          <span>Jan</span>
-                          <span>Mar</span>
-                          <span>May</span>
-                        </div>
+                      <div className="absolute left-1 top-0 bottom-0 flex flex-col justify-between text-xs text-gray-400 py-2">
+                          <span>400</span>
+                          <span>300</span>
+                          <span>200</span>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 gap-4">
-                <div className="bg-white rounded-lg border border-gray-200 p-4">
-                  <div className="flex items-center mb-2">
-                    <div className="bg-blue-100 p-1 rounded-md mr-2">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-white rounded-lg border border-gray-200 p-4 flex flex-col justify-between aspect-square">
+                <div className="flex flex-col items-start justify-start mb-2">
+                    <div className="bg-blue-100 p-1 rounded-md mr-2 gap-5">
                       <ThumbsUp className="h-4 w-4 text-blue-600" />
                     </div>
                     <span className="text-sm">Liked Leads</span>
+                  <div className="text-2xl font-bold">{receptoleadCount }</div>
                   </div>
-                  <div className="text-2xl font-bold">{receptoleadCount || "23.4K"}</div>
                 </div>
 
-                <div className="bg-white rounded-lg border border-gray-200 p-4">
-                  <div className="flex items-center mb-2">
+                <div className="bg-white rounded-lg border border-gray-200 p-4 flex flex-col justify-between aspect-square">
+                  <div className="flex flex-col items-start justify-start mb-2">
                     <div className="bg-green-100 p-1 rounded-md mr-2">
                       <Users className="h-4 w-4 text-green-600" />
                     </div>
                     <span className="text-sm">Assigned Leads</span>
+                  <div className="text-2xl font-bold">{receptoAssignedCount }</div>
                   </div>
-                  <div className="text-2xl font-bold">{receptoAssignedCount || "23.4K"}</div>
                 </div>
               </div>
             </div>
 
             {/* Org Network Leads Section */}
             <div className="grid grid-cols-3 gap-4">
-              <div className="col-span-2 bg-white rounded-lg shadow p-4">
-                <div className="flex items-center mb-4">
-                  <div className="bg-blue-600 text-white p-2 rounded-md mr-3">
-                    <span className="text-xl">f</span>
-                  </div>
-                  <div>
-                    <div className="flex items-center">
-                      <span className="font-medium">Org Network Leads</span>
-                      <div className="ml-2 text-gray-400 rounded-full border border-gray-300 h-5 w-5 flex items-center justify-center text-xs">
-                        i
-                      </div>
-                    </div>
-                    <div className="flex items-center mt-2">
-                      <span className="text-3xl font-bold">594</span>
-                      <span className="text-gray-500 ml-2">Total</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="space-y-4">
-                    <div>
-                      <div className="flex items-center mb-1">
-                        <div className="h-3 w-3 bg-orange-500 rounded-sm mr-2"></div>
-                        <span className="text-sm">Contacted</span>
-                      </div>
-                      <div className="h-2 bg-orange-500 rounded-full w-1/3 mb-1"></div>
-                      <span className="text-sm">179 users</span>
-                    </div>
-
-                    <div>
-                      <div className="flex items-center mb-1">
-                        <div className="h-3 w-3 bg-orange-200 rounded-sm mr-2"></div>
-                        <span className="text-sm">Yet to Contact</span>
-                      </div>
-                      <div className="h-2 bg-orange-200 rounded-full w-2/3 mb-1"></div>
-                      <span className="text-sm">394 users</span>
-                    </div>
-                  </div>
-
-                  <div className="col-span-2 relative">
-                    <div className="h-full flex items-end">
-                      <div className="w-full h-full bg-orange-50 rounded-md relative overflow-hidden">
-                        <div
-                          className="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-orange-300 to-orange-100"
-                          style={{
-                            clipPath:
-                              "polygon(0 100%, 100% 60%, 100% 100%, 0% 100%)",
-                          }}
-                        ></div>
-                        <div className="absolute top-0 right-8 text-blue-600 text-sm">
-                          394
-                        </div>
-                        <div className="absolute top-0 right-8 h-full w-px bg-orange-300"></div>
-                        <div className="absolute bottom-0 w-full flex justify-between text-xs text-gray-500 px-2">
-                          <span>Jan</span>
-                          <span>Mar</span>
-                          <span>May</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 gap-4">
-                <div className="bg-white rounded-lg border border-gray-200 p-4">
-                  <div className="flex items-center mb-2">
-                    <div className="bg-blue-100 p-1 rounded-md mr-2">
-                      <ThumbsUp className="h-4 w-4 text-blue-600" />
-                    </div>
-                    <span className="text-sm">Liked Leads</span>
-                  </div>
-                  <div className="text-2xl font-bold">{orgnetleadCount || "23.4K"}</div>
-                </div>
-
-                <div className="bg-white rounded-lg border border-gray-200 p-4">
-                  <div className="flex items-center mb-2">
-                    <div className="bg-green-100 p-1 rounded-md mr-2">
-                      <Users className="h-4 w-4 text-green-600" />
-                    </div>
-                    <span className="text-sm">Assigned Leads</span>
-                  </div>
-                  <div className="text-2xl font-bold">{orgnetAssignedCount || "23.4K"}</div>
-                </div>
-              </div>
+  <div className="col-span-2 bg-white rounded-lg shadow p-4 grid grid-cols-3 gap-4">
+    <div className="col-span-1 flex flex-col">
+      <div className="flex flex-col items-start mb-4">
+        <div className="bg-orange-100 p-2 rounded-md mr-3">
+          <FacebookIcon className="text-orange-600" />
+        </div>
+        <div>
+          <div className="flex items-center">
+            <span className="font-medium">Org Network Leads</span>
+            <div className="ml-2 text-gray-400 rounded-full border border-gray-300 h-5 w-5 flex items-center justify-center text-xs">
+              i
             </div>
+          </div>
+          <div className="flex items-center mt-2">
+            <span className="text-3xl font-bold">594</span>
+            <span className="text-gray-500 ml-2">Total</span>
+          </div>
+        </div>
+      </div>
+      <div className="w-full bg-yellow-100 rounded-full h-2 mb-2">
+        <div className="bg-yellow-500 h-2 rounded-full" style={{ width: '30%' }}></div>
+      </div>
+      <div className="flex justify-between w-full text-xs">
+        <div className="flex items-center">
+          <div className="h-1 w-3 bg-yellow-700 rounded-sm mr-1"></div>
+          <div>
+            <div>Contacted</div>
+            <div className="font-medium">179 users</div>
+          </div>
+        </div>
+        <div className="flex items-center">
+          <div className="h-1 w-3 bg-orange-100 rounded-sm mr-1 border border-orange-200"></div>
+          <div>
+            <div>Yet to Contact</div>
+            <div className="font-medium">394 users</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div className="col-span-2 relative">
+      <div className="h-full flex items-end">
+        <div className="w-full h-full bg-white rounded-lg shadow-lg p-4">
+          <LeadChart />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div className="grid grid-cols-2 gap-4">
+    <div className="bg-white rounded-lg border border-gray-200 p-4 flex flex-col justify-between aspect-square">
+      <div className="flex flex-col items-start justify-start mb-2">
+        <div className="bg-orange-100 p-3 rounded-md mr-2 ">
+          <ThumbsUp className="h-4 w-4 text-orange-600" />
+        </div>
+        <span className="text-sm">Liked Leads</span>
+        <div className="text-2xl font-bold">{orgnetleadCount}</div>
+      </div>
+    </div>
+    <div className="bg-white rounded-lg border border-gray-200 p-4 flex flex-col justify-between aspect-square">
+      <div className="flex flex-col items-start justify-start mb-2">
+        <div className="bg-green-100 p-1 rounded-md mr-2">
+          <Users className="h-4 w-4 text-green-600" />
+        </div>
+        <span className="text-sm">Assigned Leads</span>
+        <div className="text-2xl font-bold">{orgnetAssignedCount}</div>
+      </div>
+    </div>
+  </div>
+</div>
 
             {/* Team Table */}
             <div className="bg-white rounded-lg shadow">

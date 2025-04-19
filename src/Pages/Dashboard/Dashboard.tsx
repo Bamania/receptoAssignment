@@ -88,7 +88,7 @@ const handleLike=(lid:number)=>{
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Top header */}
       
-        {loggedUserData && <Commonheader loggedUserData={loggedUserData}/>}
+        <Commonheader />
         
         {/* Filter row */}handleUnlock
         <div className="bg-white p-4 flex justify-end items-center">

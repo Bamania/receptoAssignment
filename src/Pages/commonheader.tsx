@@ -1,10 +1,10 @@
+import { useAppSelector } from "@/redux/hooks"
 import { User } from "@/types/Usertypes"
 import { Building, Search } from "lucide-react"
 
-interface user {
-    loggedUserData:User
-  }
-export const Commonheader:React.FC<user> =({loggedUserData})=>{
+
+export const Commonheader=()=>{
+    const loggedUserData=useAppSelector((state)=>state.USER_DATA.user)
     return (
         <>
         <div className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4">

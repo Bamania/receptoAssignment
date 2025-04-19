@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { setSeedData } from './redux/features/SeedData/seeddataSlice';
 import { useStorageSync } from './hooks/useStorageSync';
 import Analytics from './Pages/Analytics';
+import { LeadChart } from './Pages/Analytics/Component/LeadChart';
 
 function App() {
   const dispatch=useDispatch();
@@ -226,7 +227,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<ReceptoDashboard />} />
-        <Route path="/Analytics" element={<Analytics />} />
+        <Route path="/analytics" element={<Analytics />} />
+        <Route path="/chart" element={<LeadChart/>} />
       </Routes>
     </BrowserRouter>
   )
