@@ -10,17 +10,25 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import AssignMenu from "./DropdownLabel";
+import { updateAssignedCount } from "@/redux/features/Org/orgSlice";
+import { useDispatch } from "react-redux";
 interface LeadsListProps {
   leads: Leads[];
-  handleUnlock: (leadId: string) => void;
+  handleUnlock: (leadId: number) => void;
+  handleLike: (leadId: number) => void;
 }
 
 // const handleUnlock=()=>{
-
-
+  
 // };
 
-export const LeadsList: React.FC<LeadsListProps> = ({ leads ,handleUnlock}) => {
+export const LeadsList: React.FC<LeadsListProps> = ({ leads,handleUnlock,handleLike}) => {
+  const dispatch=useDispatch();
+
+  const handleAssign=(lid:number,username:string)=>{
+    dispatch(updateAssignedCount({leadID:lid,username:username}))
+    console.log("assigned username",username)
+   }
   return (
     <div className="flex-1 overflow-y-auto p-4">
       {Object.values(leads).map((lead) => (
@@ -52,7 +60,7 @@ export const LeadsList: React.FC<LeadsListProps> = ({ leads ,handleUnlock}) => {
               <div className="emailflex flex justify-center items-center">
                 {!lead.contactUnlocked ? (
                   
-                  <button onClick={handleUnlock(lead.id)}className="bg-blue-600 text-white flex items-center justify-center gap-2 px-3 py-1 rounded-lg text-sm mr-2">
+                  <button onClick={()=>{handleUnlock(lead.id)}} className="bg-blue-600 text-white flex items-center justify-center gap-2 px-3 py-1 rounded-lg text-sm mr-2">
                     <img src={email} alt="" />
                     Unlock
                      <svg width="19" height="20" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -63,7 +71,7 @@ export const LeadsList: React.FC<LeadsListProps> = ({ leads ,handleUnlock}) => {
 <circle cx="14.3421" cy="9.12906" r="0.354607" transform="rotate(-5.3352 14.3421 9.12906)" fill="#FFCB4B"/>
 </svg>
                     <span className="ml-1">
-                     
+
                       {lead.credits}
                     </span>
                   </button>
@@ -74,13 +82,8 @@ export const LeadsList: React.FC<LeadsListProps> = ({ leads ,handleUnlock}) => {
   <DropdownMenuTrigger className="border  w-40 border-yellow-500 text-yellow-500 px-3 py-1 rounded-lg text-sm mr-2">Assign</DropdownMenuTrigger>
   <DropdownMenuContent>
     
-  <AssignMenu/>
-{/*    asd
-    <DropdownMenuLabel>My Account</DropdownMenuLabel>
-    <DropdownMenuItem>Profile</DropdownMenuItem>
-    <DropdownMenuItem>Billing</DropdownMenuItem>
-    <DropdownMenuItem>Team</DropdownMenuItem>
-    <DropdownMenuItem>Subscription</DropdownMenuItem> */}
+  <AssignMenu handleAssign={handleAssign} leadId={lead.id}/>
+
   </DropdownMenuContent>
 </DropdownMenu>
                       <button className="border  w-40 border-yellow-500 text-yellow-500 px-3 py-1 rounded-lg text-sm mr-2">
@@ -99,7 +102,7 @@ export const LeadsList: React.FC<LeadsListProps> = ({ leads ,handleUnlock}) => {
                 )}
                 
                 <div className="ml-2 flex">
-                  <button className="text-blue-600 mr-1">
+                  <button  onClick={()=>handleLike(lead.id)}className="text-blue-600 mr-1">
                     <ThumbsUp className="w-5 h-5" />
                   </button>
                   <button className="text-gray-400">

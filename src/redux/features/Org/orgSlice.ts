@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { OrgData } from '@/types/Usertypes';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { OrgData } from "@/types/Usertypes";
+import { localStorageUtils } from "@/lib/localStorageutils";
 
 interface OrgState {
   currentOrg: OrgData | null;
@@ -10,38 +11,75 @@ const orginitialdata: OrgState = {
 };
 
 const OrgSlice = createSlice({
-  name: 'org',
-  initialState :orginitialdata,
+  name: "org",
+  initialState: orginitialdata,
   reducers: {
     setOrgData(state, action: PayloadAction<OrgData>) {
       state.currentOrg = action.payload;
+      // Save to localStorage whenever the org data is set
+      // if (action.payload) 
+      //   localStorageUtils.setCurrentOrgData(action.payload);
+      // }
     },
     clearOrgData(state) {
       state.currentOrg = null;
     },
-    updateOrgData(state, action) {
-      const { leadId } = action.payload;
-      
-      // if (state.currentOrg) {
-      //   // Map through the leads and update the specific one
-      //   const updatedLeads = state.currentOrg.leads.map(lead => 
-      //     lead.id === leadId 
-      //       ? { ...lead, contactUnlocked: true } 
-      //       : lead
-      //   );
-        
-      //   // Update the state with the modified leads array
-      //   state.currentOrg = {
-      //     ...state.currentOrg,
-      //     leads: updatedLeads
-      //   };
-      // }
-  // state.currentOrg?.leads[leadId].contactUnlocked = true;    
+    unlockLead(state, action) {
+      const leadId = action.payload;
 
-    }
+      // since currentOrg might be null implement if statement
+      if (state.currentOrg) {
+        const lead = state.currentOrg.leads.filter((lead) => lead.id === leadId);
+        if (lead) {
+          lead[0].contactUnlocked = true;
+        }
+        
+        // Save the updated org data to localStorage ,add event listener somehow to update the state !
+        localStorageUtils.setCurrentOrgData(state.currentOrg);
+      }
+    },
+    updateAssignedCount(state, action) {
+      const {leadId, username} = action.payload;
+
+      // since currentOrg might be null implement if statement
+      if (state.currentOrg) {
+        const leadIndex = state.currentOrg.leads.findIndex((lead) => lead.id === leadId);
+        if (leadIndex !== -1) {
+          // Initialize likedBy array if it doesn't exist
+          if (!state.currentOrg.leads[leadIndex].likedBy) {
+            state.currentOrg.leads[leadIndex].likedBy = [];
+          }
+          
+          // Add username to likedBy array
+          state.currentOrg.leads[leadIndex].peopleList?.push(username);
+        }
+        
+        // Save the updated org data to localStorage 
+        localStorageUtils.setCurrentOrgData(state.currentOrg);
+      }
+    },
+    updateLikeCount(state, action) {
+      const {leadId, username} = action.payload;
+
+      // since currentOrg might be null implement if statement
+      if (state.currentOrg) {
+        const leadIndex = state.currentOrg.leads.findIndex((lead) => lead.id === leadId);
+        if (leadIndex !== -1) {
+          // Initialize likedBy array if it doesn't exist
+          if (!state.currentOrg.leads[leadIndex].likedBy) {
+            state.currentOrg.leads[leadIndex].likedBy = [];
+          }
+          
+          // Add username to likedBy array
+          state.currentOrg.leads[leadIndex].likedBy.push(username);
+        }
+        
+        // Save the updated org data to localStorage
+        localStorageUtils.setCurrentOrgData(state.currentOrg);
+      }
+    },
   },
 });
 
-export const { setOrgData, clearOrgData,updateOrgData } = OrgSlice.actions;
+export const { setOrgData, clearOrgData, unlockLead,updateLikeCount ,updateAssignedCount} = OrgSlice.actions;
 export default OrgSlice.reducer;
-

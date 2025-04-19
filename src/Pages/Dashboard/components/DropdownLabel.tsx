@@ -1,19 +1,21 @@
 import { localStorageUtils } from '@/lib/localStorageutils';
 import { useEffect, useState } from 'react';
 
-const AssignMenu = () => {
+import  randomProfile from "@/assets/pfps/pfp1.png"
+import { updateAssignedCount } from '@/redux/features/Org/orgSlice';
+
+interface DropdownProps {
+
+leadId:number
+  handleAssign: (leadId: number, username:string) => void;
+}
+const AssignMenu: React.FC<DropdownProps> = ({handleAssign,leadId}) => {
   const [searchText, setSearchText] = useState('');
-  const [users] = useState([
-    { id: '1', name: 'Olivia Rhye', isVerified: true },
-    { id: '2', name: 'Olivia Rhye' },
-    { id: '3', name: 'Olivia Rhye' },
-    { id: '4', name: 'Olivia Rhye' },
-    { id: '5', name: 'Olivia Rhye' },
-    { id: '6', name: 'Olivia Rhye' },
-  ]);
-useEffect(() => {
-localStorageUtils.getAllUsers
-},[])
+
+ const possibleUsers=  localStorageUtils.getCurrentOrgData().users
+ 
+
+ 
 
 
   return (
@@ -47,25 +49,19 @@ localStorageUtils.getAllUsers
 
       {/* Results List */}
       <div className="max-h-96 overflow-y-auto">
-        {users.map((user, index) => (
+        {possibleUsers?.map((user, index) => (
           <div 
-            key={user.id}
-            className={`flex items-center px-4 py-3 hover:bg-gray-100 ${index !== users.length - 1 ? 'border-b border-gray-200' : ''}`}
+            // key={user.id}
+            className={`flex items-center px-4 py-3 hover:bg-gray-100 ${index !== 5 - 1 ? 'border-b border-gray-200' : ''}`}
           >
             <img 
-              src="/api/placeholder/48/48" 
-              alt={`${user.name}'s profile`} 
+              src={randomProfile} 
+              alt={`${user.username}'s profile`} 
               className="w-10 h-10 rounded-full object-cover"
             />
             <div className="ml-3 flex items-center">
-              <span className="text-sm font-medium text-gray-900">{user.name}</span>
-              {user.isVerified && (
-                <span className="ml-1 bg-blue-100 text-blue-800 rounded-full p-1">
-                  <svg className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                </span>
-              )}
+              <button  onClick={()=>{handleAssign(leadId,user.username,)}}className="text-sm font-medium text-gray-900">{user.username}</button>
+             
             </div>
           </div>
         ))}

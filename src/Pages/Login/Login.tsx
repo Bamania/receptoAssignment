@@ -12,7 +12,7 @@ export const Login = () => {
     username: "",
     password: "",
     org: "",
-    role: "admin" ,
+    role: "" ,
     status: "active",
     credits:100
   });
@@ -28,13 +28,21 @@ const dispatch = useDispatch();
 
     if(allUsers?.filter((user)=>{user.username===userData.username && user.password===userData.password})){
         // compare it with the local users and if user is true  continue
-        
+        // set the current logged in user data ! 
         dispatch(setUser(userData))
-
+          // localStorageUtils.setCurrentUser(userData);      
         if  (allOrgsData && Array.isArray(allOrgsData)) {
         const requiredOrgs=allOrgsData.find((reqOrgData:any)=>reqOrgData.orgName===userData?.org)
         
-         dispatch(setOrgData(requiredOrgs))
+      
+        
+        //  only do if its empty for the first logger ! and if the current org data is same as the current user org data
+        // otherwise it would be the case for the user from diff org
+        const data=localStorageUtils.getCurrentOrgData();
+        if(!data ||userData.org!=data.orgName ){
+           localStorageUtils.setCurrentOrgData(requiredOrgs);
+           dispatch(setOrgData(requiredOrgs))
+        }
         
          }
        
@@ -131,6 +139,27 @@ const dispatch = useDispatch();
                           setUserData({ ...userData, password: e.target.value });
                         }}
                         name="password"
+                        className="block w-full border-0 bg-transparent p-0 text-sm file:my-1 placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 focus:ring-teal-500 sm:leading-7 text-foreground"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-4">
+                <div>
+                  <div className="group relative rounded-lg border focus-within:border-sky-200 px-3 pb-1.5 pt-2.5 duration-200 focus-within:ring focus-within:ring-sky-300/30">
+                    <div className="flex justify-between">
+                      <label className="text-xs font-medium text-muted-foreground group-focus-within:text-white text-gray-400">
+                      admin/security/teaching/
+                      </label>
+                    </div>
+                    <div className="flex items-center">
+                      <input
+                        type="text"
+                        onChange={(e) => {
+                          setUserData({ ...userData, role: e.target.value });
+                        }}
+                        name="admin"
                         className="block w-full border-0 bg-transparent p-0 text-sm file:my-1 placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 focus:ring-teal-500 sm:leading-7 text-foreground"
                       />
                     </div>

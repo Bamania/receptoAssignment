@@ -6,9 +6,15 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ReceptoDashboard from './Pages/Dashboard/Dashboard';
 import { useDispatch } from 'react-redux';
 import { setSeedData } from './redux/features/SeedData/seeddataSlice';
+import { useStorageSync } from './hooks/useStorageSync';
+import Analytics from './Pages/Analytics';
 
 function App() {
   const dispatch=useDispatch();
+  
+  // Initialize cross-tab synchronization
+  // useStorageSync();
+  
   //  Seed the meta data here only i.e store it in the local storage!
   useEffect(() => {
     // Only seed if no users already exist
@@ -19,7 +25,7 @@ function App() {
           username: "john",
           password: "1234",
           org: "ketamind",
-          role: "sales",
+          role: "admin",
           status: "active",
           credits:100
         },
@@ -63,7 +69,7 @@ function App() {
         orgName: "tesla",
         leads: [
           {
-            id: "0",
+            id: 0,
             type: "receptonet",
             name: "Lead 1-tesla",
             location: "Haridwar,India",
@@ -84,7 +90,7 @@ function App() {
             createdAt: new Date().toISOString()
           },
           {
-            id: "1",
+            id: 1,
             type: "receptonet",
             name: "Lead 2-tesla",
             location: "Mussorie,India",
@@ -104,7 +110,7 @@ function App() {
             createdAt: new Date().toISOString()
           },
           {
-            id: "2",
+            id: 2,
             type: "orgnet",
             name: "Lead 3-tesla",
             location: "Chopta,India",
@@ -124,7 +130,7 @@ function App() {
             createdAt: new Date().toISOString()
           }
         ],
-        users: userList,
+        users: userList.filter((user)=>user.org=="tesla"),
         stats: {
           liked: 0,
           disliked: 0,
@@ -137,7 +143,7 @@ function App() {
         orgName: "ketamind",
         leads: [
           {
-            id: "0",
+            id: 0,
             type: "orgnet",
             name: "Lead 1-ketamind",
             location: "Haridwar,India",
@@ -158,7 +164,7 @@ function App() {
             createdAt: new Date().toISOString()
           },
           {
-            id: "1",
+            id: 1,
             type: "receptonet",
             name: "Lead 2-ketamind",
             location: "Mussorie,India",
@@ -178,7 +184,7 @@ function App() {
             createdAt: new Date().toISOString()
           },
           {
-            id: "2",
+            id: 2,
             type: "orgnet",
             name: "Lead 3-ketamind",
             location: "Chopta,India",
@@ -198,7 +204,7 @@ function App() {
             createdAt: new Date().toISOString()
           }
         ],
-        users: userList,
+        users: userList.filter((user)=>user.org=="ketamind"),
         stats: {
           liked: 0,
           disliked: 0,
@@ -208,7 +214,7 @@ function App() {
       }]
 
       localStorage.setItem("users", JSON.stringify(userList));
-      localStorage.setItem("orgData_tesla", JSON.stringify(orgData));
+      localStorage.setItem("orgData", JSON.stringify(orgData));
 
       // also update the redux state !
       dispatch(setSeedData({ userList, orgData }));
@@ -220,6 +226,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<ReceptoDashboard />} />
+        <Route path="/Analytics" element={<Analytics />} />
       </Routes>
     </BrowserRouter>
   )

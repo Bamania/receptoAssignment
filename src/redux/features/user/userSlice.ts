@@ -13,6 +13,7 @@ const UserSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    // set the current log in user in the redux storage
     setUser(state, action: PayloadAction<User>) {
       state.user = action.payload;
     },

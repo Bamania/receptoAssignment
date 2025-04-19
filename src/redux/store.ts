@@ -10,12 +10,16 @@ import {
 } from "redux-persist";
 import persistStore from "redux-persist/es/persistStore";
 import storage from "redux-persist/lib/storage";
-// import { orgSlice } from "../redux/features/Org/orgSlice";
+
 import rootReducer from "./features/combinedReducer";
+import orgReducer from './features/Org/orgSlice'
+// import createCrosstabListener from "../redux/crossTablistener";
+
 const persistConfig = {
-  key: "auth",
+  key: 'root',
   storage,
-};
+}
+// const crosstabMiddleware = createCrosstabMiddleware({ key: 'root' });
 
 const persistedAuthReducer = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({
@@ -27,8 +31,9 @@ export const store = configureStore({
       },
     })
 });
+
+export const persistor = persistStore(store);
 export type AppStore = typeof store;
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-export const persistor = persistStore(store);

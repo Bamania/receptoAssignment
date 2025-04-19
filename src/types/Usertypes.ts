@@ -9,7 +9,7 @@ export interface User{
 }
 
 export interface Leads {
-    id: string; 
+    id: number; 
     type: "receptonet" | "orgnet";
     name: string;
     location: string;
@@ -33,7 +33,7 @@ export interface Leads {
 export interface OrgData {
    
     orgName: string;
-    leads: Leads;
+    leads: Leads[]; 
     users: User[];
     stats: {
     liked: number;
