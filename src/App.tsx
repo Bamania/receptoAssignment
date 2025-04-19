@@ -1,0 +1,228 @@
+import { useEffect } from 'react';
+import './App.css'
+import { Login } from './Pages/Login/Login'
+import { OrgData, User } from './types/Usertypes';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ReceptoDashboard from './Pages/Dashboard/Dashboard';
+import { useDispatch } from 'react-redux';
+import { setSeedData } from './redux/features/SeedData/seeddataSlice';
+
+function App() {
+  const dispatch=useDispatch();
+  //  Seed the meta data here only i.e store it in the local storage!
+  useEffect(() => {
+    // Only seed if no users already exist
+    const users = localStorage.getItem("users");
+    if (!users) {
+      const userList: User[] = [
+        {
+          username: "john",
+          password: "1234",
+          org: "ketamind",
+          role: "sales",
+          status: "active",
+          credits:100
+        },
+        {
+          username: "kkPant",
+          password: "1234",
+          org: "ketamind",
+          role: "sales",
+          status: "active",
+          credits:100
+        },
+        {
+          username: "maurya",
+          password: "1234",
+          org: "tesla",
+          role: "sales",
+          status: "active",
+          credits:100
+        },
+        {
+          username: "navani",
+          password: "1234",
+          org: "ketamind",
+          role: "sales",
+          status: "active",
+          credits:100
+        },
+        {
+          username: "elon",
+          password: "musk",
+          org: "tesla",
+          role: "manager",
+          status: "active",
+          credits:100
+        }
+      ];
+
+      const orgData: OrgData[] = [
+        {
+        
+        orgName: "tesla",
+        leads: [
+          {
+            id: "0",
+            type: "receptonet",
+            name: "Lead 1-tesla",
+            location: "Haridwar,India",
+            credits: 100,
+            description: "This is a description for lead 1",
+            contactUnlocked: false,
+            timeAgo: "3 hours ago",
+            tag: "tag1",
+            score: 80,
+            unlockedBy: "",
+            assignedTo: "",
+            likedBy: [],
+            dislikedBy: [],
+            peopleAssociated: ["", ""],
+            group: "Random group name 1",
+            peopleList: ["Andrew Carnegie", "Bob proctor"],
+
+            createdAt: new Date().toISOString()
+          },
+          {
+            id: "1",
+            type: "receptonet",
+            name: "Lead 2-tesla",
+            location: "Mussorie,India",
+            credits: 100,
+            description: "This is a description for lead 2",
+            contactUnlocked: false,
+            timeAgo: "3 hours ago",
+            tag: "tag1",
+            score: 80,
+            unlockedBy: "",
+            assignedTo: "",
+            likedBy: [],
+            dislikedBy: [],
+            peopleAssociated: ["", ""],
+            group: "Random Group Name 2",
+            peopleList: ["Napoleon Hill", "Modi"],
+            createdAt: new Date().toISOString()
+          },
+          {
+            id: "2",
+            type: "orgnet",
+            name: "Lead 3-tesla",
+            location: "Chopta,India",
+            credits: 70,
+            description: "This is a description for lead 3",
+            timeAgo: "3 hours ago",
+            tag: "tag1",
+            score: 80,
+            contactUnlocked: true,
+            unlockedBy: "",
+            assignedTo: "",
+            likedBy: [],
+            dislikedBy: [],
+            peopleAssociated: ["", ""],
+            group: "Random Group Name 3",
+            peopleList: ["john", "elon"],
+            createdAt: new Date().toISOString()
+          }
+        ],
+        users: userList,
+        stats: {
+          liked: 0,
+          disliked: 0,
+          assigned: 0,
+          contacted: 0
+        }
+      },
+      {
+        
+        orgName: "ketamind",
+        leads: [
+          {
+            id: "0",
+            type: "orgnet",
+            name: "Lead 1-ketamind",
+            location: "Haridwar,India",
+            credits: 100,
+            description: "This is a description for lead 1",
+            contactUnlocked: false,
+            timeAgo: "3 hours ago",
+            tag: "tag1",
+            score: 80,
+            unlockedBy: "",
+            assignedTo: "",
+            likedBy: [],
+            dislikedBy: [],
+            peopleAssociated: ["", ""],
+            group: "Random group name 1",
+            peopleList: ["Andrew Carnegie", "Bob proctor"],
+
+            createdAt: new Date().toISOString()
+          },
+          {
+            id: "1",
+            type: "receptonet",
+            name: "Lead 2-ketamind",
+            location: "Mussorie,India",
+            credits: 100,
+            description: "This is a description for lead 2",
+            contactUnlocked: false,
+            timeAgo: "3 hours ago",
+            tag: "tag1",
+            score: 80,
+            unlockedBy: "",
+            assignedTo: "",
+            likedBy: [],
+            dislikedBy: [],
+            peopleAssociated: ["", ""],
+            group: "Random Group Name 2",
+            peopleList: ["Napoleon Hill", "Modi"],
+            createdAt: new Date().toISOString()
+          },
+          {
+            id: "2",
+            type: "orgnet",
+            name: "Lead 3-ketamind",
+            location: "Chopta,India",
+            credits: 70,
+            description: "This is a description for lead 3",
+            timeAgo: "3 hours ago",
+            tag: "tag1",
+            score: 80,
+            contactUnlocked: true,
+            unlockedBy: "",
+            assignedTo: "",
+            likedBy: [],
+            dislikedBy: [],
+            peopleAssociated: ["", ""],
+            group: "Random Group Name 3",
+            peopleList: ["john", "elon"],
+            createdAt: new Date().toISOString()
+          }
+        ],
+        users: userList,
+        stats: {
+          liked: 0,
+          disliked: 0,
+          assigned: 0,
+          contacted: 0
+        }
+      }]
+
+      localStorage.setItem("users", JSON.stringify(userList));
+      localStorage.setItem("orgData_tesla", JSON.stringify(orgData));
+
+      // also update the redux state !
+      dispatch(setSeedData({ userList, orgData }));
+    }
+  }, []);
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/dashboard" element={<ReceptoDashboard />} />
+      </Routes>
+    </BrowserRouter>
+  )
+}
+
+export default App
