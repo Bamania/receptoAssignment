@@ -27,6 +27,7 @@ const handleUnlock=(lid:number)=>{
 
 const handleLike=(lid:number)=>{
   console.log("liked the lead " ,lid)
+  alert("liked the lead")
   dispatch(updateLikeCount({leadId: lid, username:loggedUserData?.username}))
   
 }

@@ -1,6 +1,7 @@
 import { useAppSelector } from "@/redux/hooks"
 import { User } from "@/types/Usertypes"
 import { Building, Search } from "lucide-react"
+import randomProf from "@/assets/pfps/pfp1.png"
 
 
 export const Commonheader=()=>{
@@ -49,7 +50,9 @@ export const Commonheader=()=>{
             </div>
             
             <div className="flex items-center">
-              <div className="w-8 h-8 bg-gray-200 rounded-full mr-2"></div>
+              <img src={randomProf} className="w-8 h-8 bg-gray-200 rounded-full mr-2">
+
+              </img>
               <div>
                 <div className="text-sm font-medium">{loggedUserData?.username}</div>
                 <div className="text-xs text-gray-500">{loggedUserData?.role}</div>

@@ -17,22 +17,19 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.488.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-is": "19.0.0-rc-6f23540c7d-20240528",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.5.1",
-    "recharts": "^2.13.0",
+    "recharts": "^2.13.0-alpha.3",
     "redux-persist": "^6.0.0",
     "redux-persist-crosstab": "^3.7.0",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7"
   },
   "overrides": {
-    "recharts": {
-      "react-is": "$react-is"
-    }
-  },
+  "react-is": "^19.0.0-rc-69d4b800-20241021"
+},
   "devDependencies": {
     "@eslint/js": "^9.22.0",
     "@types/node": "^22.14.1",
