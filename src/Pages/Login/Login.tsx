@@ -24,6 +24,11 @@ const dispatch = useDispatch();
     console.log("Button clicked");
     const allUsers=localStorageUtils.getAllUsers()
     const allOrgsData=localStorageUtils.getOrgData()
+    if(userData.org !== "ketamind" && userData.org !== "tesla") {
+      // This will only be true if org is neither "ketamind" nor "tesla"
+      alert("Invalid organization! Please enter either 'ketamind' or 'tesla'");
+      return;
+    }
 
 
     if(allUsers?.filter((user)=>{user.username===userData.username && user.password===userData.password})){
@@ -55,7 +60,35 @@ const dispatch = useDispatch();
   };
 
   return (
-    <div className="bg-black text-white flex h-screen w-full flex-col items-center pt-16 sm:justify-center sm:pt-0">
+    <div className="bg-black text-white flex h-full w-full flex-col items-center pt-16 sm:justify-center sm:pt-0">
+     <div className="bg-white p-1 rounded-lg shadow-md max-w-3xl mx-auto ">
+  <h1 className="text-2xl font-bold mb-4 text-blue-700 border-b pb-2">Important ReadMe: Organizations - Ketamind & Tesla</h1>
+  
+  <div className="space-y-4">
+    <p className="font-medium text-gray-700">Login credentials for testing:</p>
+    
+    <div className="bg-blue-50 p-4 rounded-md">
+      <h2 className="text-lg font-semibold text-blue-800 mb-2">Ketamind Organization</h2>
+      <ul className="list-disc pl-5 space-y-2">
+        <li className="text-gray-800">Admin: <span className="font-mono bg-gray-100 px-1 rounded">username: john</span>, <span className="font-mono bg-gray-100 px-1 rounded">password: 1234</span>, <span className="font-mono bg-gray-100 px-1 rounded">role: admin</span></li>
+        <li className="text-gray-800">Sales: <span className="font-mono bg-gray-100 px-1 rounded">username: maurya</span>, <span className="font-mono bg-gray-100 px-1 rounded">password: 1234</span>, <span className="font-mono bg-gray-100 px-1 rounded">role: sales</span></li>
+      </ul>
+    </div>
+    
+    <div className="bg-green-50 p-4 rounded-md">
+      <h2 className="text-lg font-semibold text-green-800 mb-2">Tesla Organization</h2>
+      <ul className="list-disc pl-5 space-y-2">
+        <li className="text-gray-800">Admin: <span className="font-mono bg-gray-100 px-1 rounded">username: elon</span>, <span className="font-mono bg-gray-100 px-1 rounded">password: 1234</span>, <span className="font-mono bg-gray-100 px-1 rounded">role: admin</span></li>
+        <li className="text-gray-800">Sales: <span className="font-mono bg-gray-100 px-1 rounded">username: kkpant</span>, <span className="font-mono bg-gray-100 px-1 rounded">password: 1234</span>, <span className="font-mono bg-gray-100 px-1 rounded">role: sales</span></li>
+      </ul>
+    </div>
+    
+    <div className="bg-yellow-50 p-4 rounded-md border-l-4 border-yellow-400">
+      <p className="text-gray-800"><span className="font-semibold">Important note:</span> Please use the 2nd member from each organization to check data persistence in the <span className="font-semibold">SAME TAB</span>. Unfortunately, cross-tab session persistence is not working yet, but data is fully persisted in the same tab as mentioned in the Figma documentation.lmk if theres any issue or change you guys want ,Thanks !</p>
+    </div>
+  </div>
+</div>
+
       <a href="#">
         <div className="text-foreground font-semibold text-2xl tracking-tighter mx-auto flex items-center gap-2">
           <div>
@@ -98,18 +131,7 @@ const dispatch = useDispatch();
                         Username
                       </label>
                       <div className="absolute right-3 translate-y-2 text-green-200">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          className="w-6 h-6"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
-                            clip-rule="evenodd"
-                          />
-                        </svg>
+                
                       </div>
                     </div>
                     <input
@@ -150,7 +172,7 @@ const dispatch = useDispatch();
                   <div className="group relative rounded-lg border focus-within:border-sky-200 px-3 pb-1.5 pt-2.5 duration-200 focus-within:ring focus-within:ring-sky-300/30">
                     <div className="flex justify-between">
                       <label className="text-xs font-medium text-muted-foreground group-focus-within:text-white text-gray-400">
-                      admin/security/teaching/
+                    Role-sales/admin
                       </label>
                     </div>
                     <div className="flex items-center">
@@ -171,12 +193,12 @@ const dispatch = useDispatch();
                   <div className="group relative rounded-lg border focus-within:border-sky-200 px-3 pb-1.5 pt-2.5 duration-200 focus-within:ring focus-within:ring-sky-300/30">
                     <div className="flex justify-between">
                       <label className="text-xs font-medium text-muted-foreground group-focus-within:text-white text-gray-400">
-                        organization Name
+                        Organization-ketamind/tesla
                       </label>
                     </div>
                     <div className="flex items-center">
                       <input
-                        type="password"
+                        type="TEXT"
                         onChange={(e) => {
                           setUserData({
                             ...userData,

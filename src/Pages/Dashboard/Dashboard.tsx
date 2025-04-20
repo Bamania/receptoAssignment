@@ -3,11 +3,12 @@ import { Search, Filter, ThumbsUp, ThumbsDown, Phone, Building } from 'lucide-re
 import { LeadsList } from './components/LeadItem';
 import receptoLogo from "@/assets/receptoLogo.png"
 import { useAppSelector } from '@/redux/hooks';
-import { unlockLead, updateAssignedCount, updateLikeCount } from '@/redux/features/Org/orgSlice';
+import { clearOrgData, unlockLead, updateAssignedCount, updateLikeCount } from '@/redux/features/Org/orgSlice';
 import { useDispatch } from 'react-redux';
 import { Commonheader } from '../commonheader';
 import FilterModal from './components/FilterModal';
 import { Leads } from '@/types/Usertypes';
+import { useNavigate } from 'react-router-dom';
 
 const ReceptoDashboard: React.FC = () => {
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
@@ -25,7 +26,7 @@ const ReceptoDashboard: React.FC = () => {
   const loggedUserData = useAppSelector((state) => state.USER_DATA.user);
   const loggedUserOrgData = useAppSelector((state) => state.ORG_DATA.currentOrg);
   const dispatch = useDispatch();
-
+  const navigate=useNavigate();
   
   const filteredLeads = useMemo(() => {
     if (!loggedUserOrgData?.leads) return [];
@@ -91,6 +92,14 @@ const ReceptoDashboard: React.FC = () => {
     setAppliedFilters(filters);
     console.log("Applied filters:", filters);
   };
+  const handleLogout=()=>{
+    console.log("Logout clicked");
+    // localStorage.removeItem("users");
+    // localStorage.removeItem("orgData");
+    
+    // dispatch(clearOrgData());
+    
+    navigate("/")  }
 
   return (
     <div className="h-screen w-full flex bg-gray-50">
@@ -134,7 +143,7 @@ const ReceptoDashboard: React.FC = () => {
                 <line x1="21" y1="12" x2="9" y2="12"></line>
               </svg>
             </div>
-            <span>Logout</span>
+            <button onClick={handleLogout} >Logout</button>
           </div>
         </div>
       </div>
