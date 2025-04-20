@@ -47,7 +47,7 @@ export const LeadsList: React.FC<LeadsListProps> = ({ leads, handleUnlock, handl
                 )}
                 
                 <div>
-                  <div className="font-medium">Jennifer Markus</div>
+                  <div className="font-medium">{lead.name}</div>
                   <div className="text-sm text-gray-500 flex items-center">
                     <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" fill="none" className="mr-1">
                       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
