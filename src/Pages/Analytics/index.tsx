@@ -180,7 +180,7 @@ export default function Analytics() {
                 </div>
 
                 <div className="col-span-2 relative">
-                  <div className="h-full flex items-end">
+                  {/* <div className="h-full flex items-end">
                     <div className="w-full h-48 bg-blue-50 rounded-md relative overflow-hidden">
                       <div
                         className="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-blue-300 to-blue-100"
@@ -208,7 +208,8 @@ export default function Analytics() {
                         <span>200</span>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
+                  <LeadChart />
                 </div>
               </div>
 

@@ -124,7 +124,7 @@ const FilterModal: React.FC<FilterModalProps> = ({ onClose, onApply, initialFilt
                 <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z" />
               </svg>
             </div>
-            <div className="flex-1">
+            <div className="flex gap-3 ">
               <h2 className="text-lg font-medium">Filters</h2>
               <p className="text-sm text-gray-600 flex items-center">
                 <span className="font-medium text-blue-600 mr-1">{totalAppliedFilters} applied</span>
@@ -146,41 +146,51 @@ const FilterModal: React.FC<FilterModalProps> = ({ onClose, onApply, initialFilt
 
         <div className="flex h-96">
           {/* Filter Categories */}
-          <div className="w-60 border-r border-gray-200 overflow-y-auto">
-            {filterOptions.map(filter => (
-              <div
-                key={filter.id}
-                className={`flex items-center p-3 cursor-pointer ${
-                  activeFilter === filter.id
-                    ? 'bg-blue-50 border-l-4 border-blue-500'
-                    : 'hover:bg-gray-50'
-                }`}
-                onClick={() => setActiveFilter(filter.id)}
-              >
-                <div className={`mr-3 rounded-md p-1 ${
-                  filter.id === 'location' ? 'bg-blue-100' : 'bg-gray-100'
-                }`}>
-                  {filter.id === 'location' ? (
-                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none">
-                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
-                      <circle cx="12" cy="10" r="3" />
-                    </svg>
-                  ) : (
-                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none">
-                      <path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z" />
-                    </svg>
-                  )}
-                </div>
-                <div className="flex-1">
-                  <span className="font-medium">{filter.label}</span>
-                </div>
-                {appliedFiltersCount(filter.id) > 0 && (
-                  <div className="bg-blue-100 text-blue-800 text-xs font-medium rounded-full w-6 h-6 flex items-center justify-center">
-                    {appliedFiltersCount(filter.id)}
+          <div className="w-60 border-r border-gray-200 overflow-y-auto p-3">
+            <div className="space-y-3">
+              {filterOptions.map(filter => (
+                <div
+                  key={filter.id}
+                  className={`cursor-pointer ${
+                    activeFilter === filter.id
+                      ? 'bg-blue-50'
+                      : 'hover:bg-gray-50'
+                  }`}
+                  onClick={() => setActiveFilter(filter.id)}
+                >
+                  <div className={`flex items-center border rounded-md overflow-hidden ${
+                    filter.id === 'location' ? 'border-blue-500' : 'border-gray-300'
+                  }`}>
+                    <div className={`p-2 ${
+                      filter.id === 'location' ? ' text-blue-700' : ' text-gray-700'
+                    }`}>
+                      {filter.id === 'location' ? (
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none">
+                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+                          <circle cx="12" cy="10" r="3" />
+                        </svg>
+                      ) : (
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none">
+                          <path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z" />
+                        </svg>
+                      )}
+                    </div>
+                    
+                    <div className="flex-1 px-3 py-2">
+                      <span className="font-medium">{filter.label}</span>
+                    </div>
+                    
+                    {appliedFiltersCount(filter.id) > 0 && (
+                      <div className="px-3 py-2">
+                        <span className="bg-blue-100 text-blue-800 text-xs font-medium rounded-full px-2 py-1 flex items-center justify-center">
+                          {appliedFiltersCount(filter.id)}
+                        </span>
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-            ))}
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Filter Options */}
@@ -244,20 +254,24 @@ const FilterModal: React.FC<FilterModalProps> = ({ onClose, onApply, initialFilt
         </div>
 
         {/* Footer */}
-        <div className="p-4 border-t border-gray-200 flex justify-between">
-          <button
-            onClick={onClose}
-            className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={handleApplyFilters}
-            className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 focus:outline-none"
-          >
-            Apply Filters
-          </button>
-        </div>
+
+        <div className="p-4 border-t border-gray-200">
+          <div className="grid grid-cols-2 gap-4">
+            <button
+              onClick={onClose}
+              className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleApplyFilters}
+              className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 focus:outline-none"
+            >
+              Apply Filters
+            </button>
+          </div>
+          </div>
+
       </div>
     </div>
   );
