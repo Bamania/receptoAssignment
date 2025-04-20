@@ -84,9 +84,9 @@ function App() {
             assignedTo: "",
             likedBy: [],
             dislikedBy: [],
-            peopleAssociated: ["", ""],
+            peopleAssociated: [],
             group: "Random group name 1",
-            peopleList: ["Andrew Carnegie", "Bob proctor"],
+            peopleList: [],
 
             createdAt: new Date().toISOString()
           },
@@ -105,9 +105,9 @@ function App() {
             assignedTo: "",
             likedBy: [],
             dislikedBy: [],
-            peopleAssociated: ["", ""],
+            peopleAssociated: [],
             group: "Random Group Name 2",
-            peopleList: ["Napoleon Hill", "Modi"],
+            peopleList: [],
             createdAt: new Date().toISOString()
           },
           {
@@ -147,7 +147,7 @@ function App() {
             id: 0,
             type: "orgnet",
             name: "Lead 1-ketamind",
-            location: "Haridwar,India",
+            location: "Haridwar,United Kingdom",
             credits: 100,
             description: "This is a description for lead 1",
             contactUnlocked: false,
@@ -160,7 +160,7 @@ function App() {
             dislikedBy: [],
             peopleAssociated: ["", ""],
             group: "Random group name 1",
-            peopleList: ["Andrew Carnegie", "Bob proctor"],
+            peopleList: [],
 
             createdAt: new Date().toISOString()
           },
@@ -181,7 +181,7 @@ function App() {
             dislikedBy: [],
             peopleAssociated: ["", ""],
             group: "Random Group Name 2",
-            peopleList: ["Napoleon Hill", "Modi"],
+            peopleList: [],
             createdAt: new Date().toISOString()
           },
           {
@@ -201,7 +201,7 @@ function App() {
             dislikedBy: [],
             peopleAssociated: ["", ""],
             group: "Random Group Name 3",
-            peopleList: ["john", "elon"],
+            peopleList: [],
             createdAt: new Date().toISOString()
           }
         ],

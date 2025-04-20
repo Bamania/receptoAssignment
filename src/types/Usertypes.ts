@@ -25,7 +25,7 @@ export interface Leads {
     group: string;
     peopleAssociated: string[]; // usernames who interacted for eg those who liked the lead !
 //   not sure i need the two different type to show the associated people with a lead !
-    peopleList?: string[];  //all the people who are in the lead
+    peopleList?: string[];  //all the people who are assigned
     tag?: string;
     createdAt?: string; // ISO date string
   }
