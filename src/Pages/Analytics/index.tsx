@@ -37,7 +37,7 @@ export default function Analytics() {
   const [currentPage, setCurrentPage] = useState(1);
 
   if (userRole && userRole !== "admin") {
-    return "you are not admin(Real id se aao)";
+    return "you are not admin";
   }
 
   const countLeadsByType = (type: string, property: 'likedBy' | 'peopleList') => {
